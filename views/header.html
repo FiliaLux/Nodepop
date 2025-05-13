@@ -31,6 +31,11 @@
                 <a class="btn btn-outline-success" href="/login">Login</a>
               </li>
              <% } else { %>
+              <li class="nav-item" style="list-style: none; margin-right: 10px;">
+                <span class="navbar-text">
+                  <i class="bi bi-person-circle"></i> <%= session.email %>
+                </span>
+              </li>
               <li class="nav-item" style="list-style: none;">
                 <a class="btn btn-outline-success" href="/logout">Logout</a>
               </li>

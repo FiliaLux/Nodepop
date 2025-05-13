@@ -23,7 +23,8 @@ export async function postLogin(req, res, next) {
         };
         
         //si todo funciona redirecciona a home estando logeado
-        req.session.userID = user.id
+        req.session.userID = user.id;
+        req.session.email = user.email;
 
         res.redirect(redir ? redir : "/");
     

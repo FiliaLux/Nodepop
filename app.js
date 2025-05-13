@@ -31,7 +31,7 @@ app.post("/login", loginController.postLogin);
 app.get("/logout", loginController.logout);
 app.get("/new/product", sessionManager.guard, productController.index);
 app.post("/new/product", sessionManager.guard, productController.postNew);
-app.get("/products/delete/:productID", sessionManager.guard, productController.deleteProduct);
+app.get("/delete/products/:productID", sessionManager.guard, productController.deleteProduct);
 
 
 // catch 404 and forward to error handler
