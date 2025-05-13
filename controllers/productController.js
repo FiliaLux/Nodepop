@@ -39,3 +39,12 @@ export async function deleteProduct (req, res, next) {
         next(error)
     }
 };
+
+export async function myProducts(req, res, next) {
+    try {
+      const products = await Product.find({ owner: req.session.userID });
+      res.render("my-products", { products });
+    } catch (err) {
+      next(err);
+    }
+  }

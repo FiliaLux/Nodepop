@@ -33,7 +33,7 @@ app.get("/logout", loginController.logout);
 app.get("/new/product", sessionManager.guard, productController.index);
 app.post("/new/product", sessionManager.guard, imageUpload.single, productController.postNew);
 app.get("/delete/products/:productID", sessionManager.guard, productController.deleteProduct);
-
+app.get("/my-products", sessionManager.guard, productController.myProducts);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

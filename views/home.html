@@ -3,16 +3,19 @@
 <div class="container">    
     <% // contenido para usuarios logados %>
     <% if (!session.userID) { %>
-        <p><a href="/login">Log in</a> to access your products</p>
-    <% } else { %>
-        <h2>Products</h2>
-        <% products.forEach(product => { %>
-            <img src="<%= product.image %>" width="150">
-            <p>
-            <%= product.name %>: <%= product.price %> €
-            <a href="/delete/products/<%= product._id %>"><i class="bi bi-trash3"></i></a>
-        </p>
-        <% }) %>
+        <p style="margin-top: 40px;"><a href="/login">Log in</a> to access your products</p>
     <% } %>
-<%- include("footer.html") %>
+    <div class="product-grid">
+        <% products.forEach(product => { %>
+          <div class="product-card">
+            <img src="<%= product.image %>" alt="<%= product.name %>" height="120px">
+            <div class="product-info">
+              <span class="product-name"><%= product.name %></span>
+              <span class="product-price"><%= product.price %> €</span>
+            </div>
+          </div>
+        <% }) %>
+    </div>
+      
+      <%- include("footer.html") %>
 </div>
