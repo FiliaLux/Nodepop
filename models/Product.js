@@ -4,6 +4,7 @@ const productSchema = new mongoose.Schema({
     name: String,
     price: {type: Number},
     updated: {type: Date, default: Date.now},
+    image: String,
     owner: {type: SchemaTypes.ObjectId, ref: "User", index: true}
 }, {
     collection: "products"

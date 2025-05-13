@@ -7,6 +7,7 @@ import connectMongoose from './lib/connectMongoose.js';
 import * as loginController from "./controllers/loginController.js";
 import * as sessionManager from "./lib/sessionManager.js";
 import * as productController from "./controllers/productController.js";
+import * as imageUpload from './lib/imageUpload.js';
 
 await connectMongoose();
 console.log("Connected to mongodb");
@@ -30,7 +31,7 @@ app.get("/login", loginController.index);
 app.post("/login", loginController.postLogin);
 app.get("/logout", loginController.logout);
 app.get("/new/product", sessionManager.guard, productController.index);
-app.post("/new/product", sessionManager.guard, productController.postNew);
+app.post("/new/product", sessionManager.guard, imageUpload.single, productController.postNew);
 app.get("/delete/products/:productID", sessionManager.guard, productController.deleteProduct);
 
 

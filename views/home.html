@@ -7,7 +7,8 @@
     <% } else { %>
         <h2>Products</h2>
         <% products.forEach(product => { %>
-        <p>
+            <img src="<%= product.image %>" width="150">
+            <p>
             <%= product.name %>: <%= product.price %> €
             <a href="/delete/products/<%= product._id %>"><i class="bi bi-trash3"></i></a>
         </p>

@@ -1,3 +1,4 @@
+import * as upload from "../lib/imageUpload.js";
 import Product from "../models/Product.js";
 
 export function index (req, res, next) {
@@ -9,11 +10,11 @@ export async function postNew (req, res, next) {
         
         const {name, price} = req.body;
         const userID = req.session.userID;
-        
+        const image = req.file ? `/uploads/${req.file.filename}` : null;
         // validaciones
         
         // creo una instancia de producto en memoria
-        const product = new Product({name, price, owner: userID});
+        const product = new Product({name, price, image, owner: userID});
 
         // lo guardo en base de datos
         await product.save()
