@@ -1,0 +1,18 @@
+
+<%- include("header.html") %>    
+<div class="container">    
+    <p>User ID: <%= session.userID %></p>
+    <% // contenido para usuarios logados %>
+    <% if (!session.userID) { %>
+        <p><a href="/login">Log in</a> to access your products</p>
+    <% } else { %>
+        <h2>Products</h2>
+        <% products.forEach(product => { %>
+        <p>
+            <%= product.name %>: <%= product.price %> €
+            <a href="/delete/products/<%= product._id %>"><i class="bi bi-trash3"></i></a>
+        </p>
+        <% }) %>
+    <% } %>
+<%- include("footer.html") %>
+</div>
