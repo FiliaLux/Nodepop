@@ -39,9 +39,9 @@ async function initProducts() {
     ])
     
     const insertResult = await Product.insertMany([
-        {name: "Blender", price: 45, image: "/images/blender.jpg", owner: admin._id},
-        {name: "T-shirt", price: 10, image: "/images/shirt.webp", owner: user._id},
-        {name: "Car", price: 24000, image: "/images/hyundai-second-hand-cars.jpeg", owner: admin._id}
+        {name: "Blender", price: 45, image: "/images/blender.jpg", tags: ["lifestyle"], owner: admin._id},
+        {name: "T-shirt", price: 10, image: "/images/shirt.webp", tags: ["art","lifestyle"], owner: user._id},
+        {name: "Car", price: 24000, image: "/images/hyundai-second-hand-cars.jpeg", tags: ["motor"], owner: admin._id}
      ]);
     console.log(`Inserted ${insertResult.length} products`);
 };

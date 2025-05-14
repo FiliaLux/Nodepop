@@ -128,3 +128,29 @@
 .suggestion-item:hover {
   background-color: #efefef;
 }
+
+.autocomplete-container {
+  position: relative;
+  flex: 1 1 150px;
+  min-width: 120px;
+}
+
+#suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background: white;
+  border-top: none;
+  max-height: 200px;
+  overflow-y: auto;
+  border-radius: 0 0 6px 6px;
+}
+
+.suggestion-item {
+  padding: 8px;
+  cursor: pointer;
+  border-bottom: 2px solid #eee;
+}
+

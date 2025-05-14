@@ -18,11 +18,13 @@ export async function index (req, res, next) {
         }
 
         const products = await Product.find(filter)
-        .sort(sort)
+        .sort({[sort]: 1})
         .skip(parseInt(skip))
         .limit(parseInt(limit));
   
-        res.render("home", { products, query: req.query });
+        const allTags = await Product.distinct("tags");
+
+        res.render("home", { products, query: req.query, predefinedTags: allTags });
         
         //res.render("home", { products });
     

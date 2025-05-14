@@ -6,12 +6,10 @@
 <div class="container">    
   <div class="filter-bar">
     <form method="GET" action="/" class="filter-form">
-      <input
-        type="text"
-        name="tag"
-        placeholder="Search by tag..."
-        value="<%= query?.tag || '' %>"
-      />
+      <div class="autocomplete-container">
+        <input type="text" id="tagInput" name="tag" placeholder="Search by tag..." autocomplete="off" value="<%= query?.tag || '' %>">
+        <div id="suggestions" class="suggestions"></div>
+      </div>
       <input
         type="number"
         name="limit"
@@ -45,6 +43,11 @@
           </div>
         <% }) %>
     </div>
+    
       
       <%- include("footer.html") %>
 </div>
+<script>
+      const predefinedTags = <%- JSON.stringify(predefinedTags) %>;
+    </script>
+<script src="/js/tagFilterAutocomplete.js"></script>
