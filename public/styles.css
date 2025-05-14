@@ -81,6 +81,45 @@
   color: #ff4d4d;
 }
 
+.filter-bar {
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.filter-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.filter-form input,
+.filter-form select,
+.filter-form button {
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  outline: none;
+  flex: 1 1 150px;
+  min-width: 120px;
+}
+
+.filter-form button {
+  background-color: #000;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.filter-form button:hover {
+  background-color: #333;
+}
+
 .tag-button.active-tag {
   background-color: #d1d1d1;
   color: black;

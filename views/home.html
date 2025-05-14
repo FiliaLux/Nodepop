@@ -4,6 +4,34 @@
 
 <%- include("header.html") %>    
 <div class="container">    
+  <div class="filter-bar">
+    <form method="GET" action="/" class="filter-form">
+      <input
+        type="text"
+        name="tag"
+        placeholder="Search by tag..."
+        value="<%= query?.tag || '' %>"
+      />
+      <input
+        type="number"
+        name="limit"
+        placeholder="Limit"
+        value="<%= query?.limit || 10 %>"
+      />
+      <input
+        type="number"
+        name="skip"
+        placeholder="Skip"
+        value="<%= query?.skip || 0 %>"
+      />
+      <select name="sort">
+        <option value="updated" <%= query?.sort === 'updated' ? 'selected' : '' %>>Updated</option>
+        <option value="name" <%= query?.sort === 'name' ? 'selected' : '' %>>Name</option>
+        <option value="price" <%= query?.sort === 'price' ? 'selected' : '' %>>Price</option>
+      </select>
+      <button type="submit">Apply</button>
+    </form>
+  </div>  
     <div class="product-grid">
         <% products.forEach(product => { %>
           <div class="product-card">
