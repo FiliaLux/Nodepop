@@ -2,19 +2,27 @@ import * as upload from "../lib/imageUpload.js";
 import Product from "../models/Product.js";
 
 export function index (req, res, next) {
-    res.render("new-product");
+    const predefinedTags = ["art", "motor", "mobile", "lifestyle"];
+    res.render("new-product", { predefinedTags });
 };
 
 export async function postNew (req, res, next) {
     try {
         
-        const {name, price} = req.body;
+        const {name, price, tags} = req.body;
         const userID = req.session.userID;
         const image = req.file ? `/uploads/${req.file.filename}` : null;
-        // validaciones
+        
+        let tagArray = [];
+        if (tags) {
+            tagArray = tags
+              .split(',')
+              .map(t => t.trim().toLowerCase())
+              .filter(t => t.length > 0);
+        };
         
         // creo una instancia de producto en memoria
-        const product = new Product({name, price, image, owner: userID});
+        const product = new Product({name, price, image, tags: tagArray, owner: userID});
 
         // lo guardo en base de datos
         await product.save()

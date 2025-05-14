@@ -1,24 +1,134 @@
 <%- include("header.html") %>
 
 <div class="container">
+  <h1 style="font-size: x-large;">New Product</h1>
 
-<h1 style="font-size: x-large;">New Product</h1>
+  <form method="POST" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label class="form-label">Name</label>
+      <input name="name" class="form-control">
+    </div>
 
-<form method="POST" enctype="multipart/form-data">
     <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Name</label>
-      <input name="name" class="form-control" id="exampleInputEmail1">
+      <label class="form-label">Price</label>
+      <input name="price" class="form-control">
     </div>
+
     <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label">Price</label>
-      <input name="price" class="form-control" id="exampleInputPassword1">
+      <label class="form-label">Image</label>
+      <input type="file" name="image" class="form-control" accept="image/*">
     </div>
+
+    <!-- Tags Section -->
     <div class="mb-3">
-        <label class="form-label">Image</label>
-        <input type="file" name="image" class="form-control" accept="image/*">
+      <label class="form-label">Tags</label>
+      <div class="dropdown">
+        <input type="text" id="tagSearch" class="form-control" placeholder="Type to search or add a tag..." autocomplete="off">
+        <!-- Updated: Added a div for the dropdown suggestions -->
+        <div id="tagDropdown" class="dropdown-menu" style="display: none; max-height: 150px; overflow-y: auto; position: absolute; z-index: 1000;"></div>
+      </div>
+
+      <!-- Display selected tags -->
+      <div id="selectedTags" class="mt-2"></div>
+
+      <!-- Hidden input to hold the final tag string -->
+      <input type="hidden" name="tags" id="hiddenTags">
     </div>
+
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 </div>
 
-<%- include("footer.html") %>  
+<script>
+  const predefinedTags = <%- JSON.stringify(predefinedTags) %>;
+  const tagSearch = document.getElementById("tagSearch");
+  const tagDropdown = document.getElementById("tagDropdown");
+  const selectedTags = document.getElementById("selectedTags");
+  const hiddenTags = document.getElementById("hiddenTags");
+
+  let currentTags = [];
+
+  function updateHiddenTags() {
+    hiddenTags.value = currentTags.join(", ");
+  }
+
+  function addTag(tag) {
+    if (!currentTags.includes(tag)) {
+      currentTags.push(tag);
+      renderSelectedTags();
+      updateHiddenTags();
+    }
+  }
+
+  function removeTag(tag) {
+    currentTags = currentTags.filter(t => t !== tag);
+    renderSelectedTags();
+    updateHiddenTags();
+  }
+
+  function renderSelectedTags() {
+    selectedTags.innerHTML = "";
+    currentTags.forEach(tag => {
+      const tagEl = document.createElement("span");
+      tagEl.className = "badge bg-secondary me-1 mb-1";
+      tagEl.style.cursor = "pointer";
+      tagEl.innerText = "#" + tag;
+      tagEl.onclick = () => removeTag(tag);
+      selectedTags.appendChild(tagEl);
+    });
+  }
+
+  // Filter dropdown items based on input
+  tagSearch.addEventListener("input", () => {
+    const input = tagSearch.value.trim().toLowerCase();
+    tagDropdown.innerHTML = "";  // Clear previous results
+    if (!input) {
+      tagDropdown.style.display = "none";  // Hide the dropdown if input is empty
+      return;
+    }
+
+    const matches = predefinedTags.filter(tag => tag.toLowerCase().includes(input) && !currentTags.includes(tag));
+
+    if (matches.length > 0) {
+      matches.forEach(match => {
+        const matchEl = document.createElement("a");
+        matchEl.className = "dropdown-item";
+        matchEl.innerText = `#${match}`;
+        matchEl.href = "#";
+        matchEl.onclick = (e) => {
+          e.preventDefault();
+          addTag(match);
+          tagSearch.value = "";
+          tagDropdown.style.display = "none";
+        };
+        tagDropdown.appendChild(matchEl);
+      });
+    }
+
+    // Add "Create new" option if there are no matches
+    if (!matches.length && input.length > 0) {
+      const createNew = document.createElement("a");
+      createNew.className = "dropdown-item";
+      createNew.innerText = `Create new tag: #${input}`;
+      createNew.href = "#";
+      createNew.onclick = (e) => {
+        e.preventDefault();
+        addTag(input);
+        tagSearch.value = "";
+        tagDropdown.style.display = "none";
+      };
+      tagDropdown.appendChild(createNew);
+    }
+
+    tagDropdown.style.display = "block";  // Show the dropdown
+  });
+
+  // Hide dropdown when clicking outside
+  document.addEventListener("click", (e) => {
+    if (!tagDropdown.contains(e.target) && e.target !== tagSearch) {
+      tagDropdown.style.display = "none";
+    }
+  });
+</script>
+
+<%- include("footer.html") %>

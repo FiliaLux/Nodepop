@@ -1,14 +1,15 @@
+<head>
+  <link rel="stylesheet" href="/styles.css">
+</head>
 
 <%- include("header.html") %>    
 <div class="container">    
-    <% // contenido para usuarios logados %>
-    <% if (!session.userID) { %>
-        <p style="margin-top: 40px;"><a href="/login">Log in</a> to access your products</p>
-    <% } %>
     <div class="product-grid">
         <% products.forEach(product => { %>
           <div class="product-card">
-            <img src="<%= product.image %>" alt="<%= product.name %>" height="120px">
+            <div class="image-wrapper">
+              <img src="<%= product.image %>" alt="<%= product.name %>">
+            </div>
             <div class="product-info">
               <span class="product-name"><%= product.name %></span>
               <span class="product-price"><%= product.price %> €</span>

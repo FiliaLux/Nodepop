@@ -1,3 +1,7 @@
+<head>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+
 <%- include("header.html") %>
 
 <div class="container">
@@ -5,10 +9,13 @@
   <div class="product-grid">
     <% products.forEach(product => { %>
       <div class="product-card">
-        <img src="<%= product.image %>" alt="Product image" height="120px">
+        <div class="image-wrapper">
+          <img src="<%= product.image %>" alt="<%= product.name %>">
+        </div>
         <div class="product-info">
           <span class="product-name"><%= product.name %></span>
           <span class="product-price"><%= product.price %> €</span>
+          <a href="/delete/products/<%= product._id %>"><i class="bi bi-trash3"></i></a>
         </div>
       </div>
     <% }) %>

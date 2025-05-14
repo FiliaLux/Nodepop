@@ -5,7 +5,8 @@ const productSchema = new mongoose.Schema({
     price: {type: Number},
     updated: {type: Date, default: Date.now},
     image: String,
-    owner: {type: SchemaTypes.ObjectId, ref: "User", index: true}
+    owner: {type: SchemaTypes.ObjectId, ref: "User", index: true},
+    tags: [String],
 }, {
     collection: "products"
 });
